@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request an Appointment — Wisdom Surgery Clinic | Dr Anna Raymond</title>
+  <meta name="description" content="Request a consultation with Dr Anna Raymond, Oral & Maxillofacial Surgeon. Clinics at Greenslopes, Everton Park, Caboolture, Redcliffe, Brisbane and Cleveland." />
+  <meta name="keywords" content="oral surgeon Brisbane, maxillofacial surgeon Queensland, wisdom teeth removal Brisbane, dental implants Queensland, jaw surgery Brisbane, book oral surgeon" />
+  <link rel="canonical" href="https://wisdomsurgery.me/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Request an Appointment — Wisdom Surgery Clinic" />
+  <meta property="og:description" content="Book a consultation with Dr Anna Raymond, Oral & Maxillofacial Surgeon across Queensland." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wisdomsurgery.me/" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Wisdom Surgery Clinic",
+    "description": "Independent specialist Oral & Maxillofacial Surgery practice led by Dr Anna Raymond",
+    "url": "https://wisdomsurgery.me",
+    "telephone": "1300 111 324",
+    "medicalSpecialty": "Oral and Maxillofacial Surgery",
+    "address": [
+      { "@type": "PostalAddress", "streetAddress": "Newdegate St", "addressLocality": "Greenslopes", "addressRegion": "QLD", "addressCountry": "AU" },
+      { "@type": "PostalAddress", "streetAddress": "137 Flockton St", "addressLocality": "Everton Park", "addressRegion": "QLD", "addressCountry": "AU" },
+      { "@type": "PostalAddress", "addressLocality": "Caboolture", "addressRegion": "QLD", "addressCountry": "AU" }
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          teal:  { 50:'#f0fbfb',100:'#d9f4f4',200:'#b2e9e9',300:'#7dd8d8',400:'#3ec4c4',500:'#2ab4b4',600:'#1e9696',700:'#187878',800:'#155f5f',900:'#124f4f' },
+          navy:  { 50:'#eef3f8',100:'#d5e1ee',200:'#adc4dd',300:'#7aa0c6',400:'#4d7daf',500:'#2e5f94',600:'#1e4a7a',700:'#153964',800:'#0f2a4d',900:'#091d38' },
+        },
+        fontFamily: { display:['"Playfair Display"','Georgia','serif'], sans:['"DM Sans"','system-ui','sans-serif'] }
+      }}
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'DM Sans',system-ui,sans-serif; background:#f0f9f9; color:#1a2e3b; min-height:100vh; }
+
+    /* Nav */
+    .nav-wrap { background:rgba(9,29,56,0.97); backdrop-filter:blur(16px); border-bottom:1px solid rgba(42,180,180,0.18); }
+
+    /* Progress bar */
+    .prog-track { display:flex; align-items:center; gap:0; }
+    .prog-step  { display:flex; flex-direction:column; align-items:center; gap:6px; flex:1; position:relative; }
+    .prog-step:not(:last-child)::after {
+      content:''; position:absolute; top:14px; left:calc(50% + 14px); right:calc(-50% + 14px);
+      height:2px; background:#d1e8e8; transition:background 0.4s;
+    }
+    .prog-step.done:not(:last-child)::after  { background:#2ab4b4; }
+    .prog-dot  { width:28px; height:28px; border-radius:50%; border:2px solid #d1e8e8; background:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#9cb8c8; transition:all 0.3s; position:relative; z-index:1; }
+    .prog-step.active .prog-dot { border-color:#2ab4b4; background:#2ab4b4; color:#fff; box-shadow:0 0 0 5px rgba(42,180,180,0.15); }
+    .prog-step.done .prog-dot   { border-color:#2ab4b4; background:#2ab4b4; color:#fff; }
+    .prog-label { font-size:10px; font-weight:500; color:#9cb8c8; text-align:center; line-height:1.3; max-width:68px; }
+    .prog-step.active .prog-label { color:#187878; font-weight:600; }
+    .prog-step.done  .prog-label  { color:#4d7daf; }
+
+    /* Card */
+    .fcard { background:#fff; border-radius:20px; border:1px solid rgba(42,180,180,0.13); box-shadow:0 4px 32px rgba(42,180,180,0.08),0 1px 4px rgba(0,0,0,0.04); overflow:hidden; }
+    .fcard-head { padding:26px 32px 22px; border-bottom:1.5px solid rgba(42,180,180,0.1); background:linear-gradient(135deg,#f0fbfb 0%,#e8f7f7 100%); }
+    .fcard-body { padding:32px; }
+
+    /* Form fields */
+    .fgroup { display:flex; flex-direction:column; gap:5px; }
+    .flabel { font-size:12px; font-weight:600; letter-spacing:0.04em; color:#4d6b80; text-transform:uppercase; }
+    .flabel .req { color:#2ab4b4; margin-left:2px; }
+    .finput {
+      width:100%; padding:11px 14px; border:1.5px solid #d4e6e6; border-radius:10px;
+      font-size:14px; color:#0f2a4d; font-family:'DM Sans',sans-serif;
+      background:#fff; transition:border-color 0.2s, box-shadow 0.2s; outline:none;
+    }
+    .finput:focus { border-color:#2ab4b4; box-shadow:0 0 0 3px rgba(42,180,180,0.12); }
+    .finput::placeholder { color:#aac4cc; }
+    select.finput { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232ab4b4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
+    textarea.finput { resize:vertical; min-height:90px; line-height:1.6; }
+
+    /* Location cards */
+    .loc-card { border:1.5px solid #d4e6e6; border-radius:14px; padding:18px 20px; cursor:pointer; transition:all 0.2s; background:#fff; display:flex; align-items:flex-start; gap:14px; }
+    .loc-card:hover { border-color:#2ab4b4; background:#f5fcfc; transform:translateY(-1px); box-shadow:0 4px 16px rgba(42,180,180,0.12); }
+    .loc-card.selected { border-color:#2ab4b4; background:#f0fbfb; box-shadow:0 0 0 3px rgba(42,180,180,0.15); }
+    .loc-dot { width:20px; height:20px; border-radius:50%; border:2px solid #d4e6e6; flex-shrink:0; margin-top:2px; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
+    .loc-card.selected .loc-dot { border-color:#2ab4b4; background:#2ab4b4; }
+    .loc-dot-inner { width:8px; height:8px; border-radius:50%; background:#fff; opacity:0; transition:opacity 0.2s; }
+    .loc-card.selected .loc-dot-inner { opacity:1; }
+
+    /* Procedure pills */
+    .proc-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:10px; }
+    .proc-pill { border:1.5px solid #d4e6e6; border-radius:10px; padding:12px 16px; cursor:pointer; transition:all 0.2s; background:#fff; display:flex; align-items:center; gap:10px; }
+    .proc-pill:hover { border-color:#2ab4b4; background:#f5fcfc; }
+    .proc-pill.selected { border-color:#2ab4b4; background:#f0fbfb; }
+    .proc-check { width:18px; height:18px; border-radius:5px; border:2px solid #d4e6e6; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+    .proc-pill.selected .proc-check { border-color:#2ab4b4; background:#2ab4b4; }
+
+    /* Buttons */
+    .btn-primary { background:linear-gradient(135deg,#2ab4b4 0%,#1e9696 100%); color:#fff; border:none; border-radius:12px; padding:13px 32px; font-size:15px; font-weight:600; font-family:'DM Sans',sans-serif; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; box-shadow:0 4px 18px rgba(42,180,180,0.35); }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(42,180,180,0.45); }
+    .btn-primary:active { transform:none; }
+    .btn-primary:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .btn-ghost { background:transparent; border:1.5px solid #d4e6e6; border-radius:12px; padding:12px 28px; font-size:14px; font-weight:500; color:#4d6b80; font-family:'DM Sans',sans-serif; cursor:pointer; transition:all 0.2s; }
+    .btn-ghost:hover { border-color:#2ab4b4; color:#2ab4b4; }
+
+    /* Review rows */
+    .review-row { display:flex; justify-content:space-between; align-items:flex-start; padding:10px 0; border-bottom:1px solid rgba(42,180,180,0.08); gap:16px; }
+    .review-row:last-child { border-bottom:none; }
+    .review-key { font-size:12px; font-weight:600; color:#4d6b80; text-transform:uppercase; letter-spacing:0.04em; flex-shrink:0; min-width:140px; }
+    .review-val { font-size:14px; color:#0f2a4d; font-weight:500; text-align:right; }
+
+    /* Success screen */
+    .success-icon { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,#2ab4b4,#1e9696); display:flex; align-items:center; justify-content:center; margin:0 auto; box-shadow:0 8px 32px rgba(42,180,180,0.35); }
+
+    /* Error */
+    .ferror { font-size:12px; color:#dc2626; margin-top:3px; display:none; }
+    .finput.invalid { border-color:#dc2626; }
+
+    /* Fade anim */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+    .fade-up { animation:fadeUp 0.35s ease both; }
+
+    /* Responsive */
+    @media(max-width:640px) {
+      .fcard-body { padding:20px; }
+      .fcard-head { padding:20px; }
+      .fg-2 { grid-template-columns:1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ───────────────────────────────────────────── -->
+<nav class="nav-wrap sticky top-0 z-50">
+  <div class="max-w-3xl mx-auto px-5 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div style="width:36px;height:36px;border-radius:50%;background:rgba(42,180,180,0.18);display:flex;align-items:center;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ab4b4" stroke-width="2" stroke-linecap="round"><path d="M12 2a7 7 0 1 0 0 14A7 7 0 0 0 12 2z"/><path d="M8 12h8M12 8v8"/></svg>
+      </div>
+      <div>
+        <p class="text-white text-sm font-semibold leading-none" style="font-family:'DM Sans',sans-serif;">Wisdom Surgery Clinic</p>
+        <p style="color:#2ab4b4;font-size:11px;line-height:1;margin-top:2px;font-family:'DM Sans',sans-serif;">Request an Appointment</p>
+      </div>
+    </div>
+    <a href="https://wisdomsurgery.clinic" target="_blank" style="color:#9ca3af;font-size:13px;font-family:'DM Sans',sans-serif;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#2ab4b4'" onmouseout="this.style.color='#9ca3af'">
+      Main site ↗
+    </a>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────── -->
+<div style="background:linear-gradient(160deg,#091d38 0%,#0f2a4d 60%,#155f5f 100%);padding:52px 20px 44px;">
+  <div class="max-w-3xl mx-auto text-center">
+    <p style="color:#2ab4b4;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;font-family:'DM Sans',sans-serif;">Dr Anna Raymond · Oral & Maxillofacial Surgery</p>
+    <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,5vw,42px);font-weight:500;color:#fff;margin-bottom:14px;line-height:1.2;">Request a Consultation</h1>
+    <p style="color:#aac4cc;font-size:15px;line-height:1.7;max-width:520px;margin:0 auto;font-family:'DM Sans',sans-serif;">
+      Complete the form below and our team will confirm your appointment within one business day.
+      A referral from your GP or dentist is required.
+    </p>
+    <!-- Phone -->
+    <div style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:rgba(42,180,180,0.12);border:1px solid rgba(42,180,180,0.25);border-radius:30px;padding:8px 18px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ab4b4" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5a2 2 0 0 1 1.99-2H6.6a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.09a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.4z"/></svg>
+      <a href="tel:1300111324" style="color:#2ab4b4;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;text-decoration:none;">1300 111 324</a>
+      <span style="color:#4d7daf;font-size:12px;font-family:'DM Sans',sans-serif;">· prefer to call?</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Form container ─────────────────────────────────────────── -->
+<div class="max-w-3xl mx-auto px-4 py-10">
+
+  <!-- Progress indicator -->
+  <div style="margin-bottom:32px;" id="prog-wrap">
+    <div class="prog-track" id="progress">
+      <div class="prog-step active" id="ps1">
+        <div class="prog-dot">1</div>
+        <span class="prog-label">About You</span>
+      </div>
+      <div class="prog-step" id="ps2">
+        <div class="prog-dot">2</div>
+        <span class="prog-label">Appointment</span>
+      </div>
+      <div class="prog-step" id="ps3">
+        <div class="prog-dot">3</div>
+        <span class="prog-label">Location</span>
+      </div>
+      <div class="prog-step" id="ps4">
+        <div class="prog-dot">4</div>
+        <span class="prog-label">Referrer</span>
+      </div>
+      <div class="prog-step" id="ps5">
+        <div class="prog-dot">✓</div>
+        <span class="prog-label">Review</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 1: About You ───────────────────────────────────── -->
+  <div id="step-1" class="fcard fade-up">
+    <div class="fcard-head">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2ab4b4;margin-bottom:4px;font-family:'DM Sans',sans-serif;">Step 1 of 5</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:500;color:#0f2a4d;">About You</h2>
+      <p style="font-size:13px;color:#4d7daf;margin-top:4px;font-family:'DM Sans',sans-serif;">Your personal and contact details</p>
+    </div>
+    <div class="fcard-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="fg-2">
+        <div class="fgroup">
+          <label class="flabel">First name <span class="req">*</span></label>
+          <input class="finput" id="f-firstname" type="text" placeholder="Anna" autocomplete="given-name" />
+          <span class="ferror" id="e-firstname">Please enter your first name.</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Last name <span class="req">*</span></label>
+          <input class="finput" id="f-lastname" type="text" placeholder="Smith" autocomplete="family-name" />
+          <span class="ferror" id="e-lastname">Please enter your last name.</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Date of birth <span class="req">*</span></label>
+          <input class="finput" id="f-dob" type="date" />
+          <span class="ferror" id="e-dob">Please enter your date of birth.</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Phone <span class="req">*</span></label>
+          <input class="finput" id="f-phone" type="tel" placeholder="04XX XXX XXX" autocomplete="tel" />
+          <span class="ferror" id="e-phone">Please enter a valid phone number.</span>
+        </div>
+        <div class="fgroup" style="grid-column:span 2;" class="s2">
+          <label class="flabel">Email address <span class="req">*</span></label>
+          <input class="finput" id="f-email" type="email" placeholder="your@email.com" autocomplete="email" />
+          <span class="ferror" id="e-email">Please enter a valid email address.</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Suburb / Postcode</label>
+          <input class="finput" id="f-suburb" type="text" placeholder="Brisbane, 4000" />
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Patient type <span class="req">*</span></label>
+          <select class="finput" id="f-patienttype">
+            <option value="">Select…</option>
+            <option value="New patient">New patient</option>
+            <option value="Returning patient">Returning patient</option>
+          </select>
+          <span class="ferror" id="e-patienttype">Please select one.</span>
+        </div>
+      </div>
+      <div style="margin-top:28px;display:flex;justify-content:flex-end;">
+        <button class="btn-primary" onclick="nextStep(1)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: Appointment ─────────────────────────────────── -->
+  <div id="step-2" class="fcard fade-up" style="display:none;">
+    <div class="fcard-head">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2ab4b4;margin-bottom:4px;font-family:'DM Sans',sans-serif;">Step 2 of 5</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:500;color:#0f2a4d;">Your Appointment</h2>
+      <p style="font-size:13px;color:#4d7daf;margin-top:4px;font-family:'DM Sans',sans-serif;">Tell us about the procedure and any timing preferences</p>
+    </div>
+    <div class="fcard-body">
+
+      <div class="fgroup" style="margin-bottom:20px;">
+        <label class="flabel">Reason for consultation <span class="req">*</span></label>
+        <p style="font-size:12px;color:#4d7daf;margin-bottom:10px;font-family:'DM Sans',sans-serif;">Select all that apply</p>
+        <div class="proc-grid" id="proc-grid">
+          <!-- filled by JS -->
+        </div>
+        <span class="ferror" id="e-procedure">Please select at least one procedure.</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;" class="fg-2">
+        <div class="fgroup">
+          <label class="flabel">Urgency <span class="req">*</span></label>
+          <select class="finput" id="f-urgency">
+            <option value="">Select…</option>
+            <option value="Routine — within a few weeks">Routine — within a few weeks</option>
+            <option value="Moderate — within 1–2 weeks">Moderate — within 1–2 weeks</option>
+            <option value="Urgent — pain or infection">Urgent — pain or infection</option>
+          </select>
+          <span class="ferror" id="e-urgency">Please select urgency.</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Preferred time of day</label>
+          <select class="finput" id="f-timeofday">
+            <option value="No preference">No preference</option>
+            <option value="Morning (before 12pm)">Morning (before 12pm)</option>
+            <option value="Afternoon (after 12pm)">Afternoon (after 12pm)</option>
+          </select>
+        </div>
+        <div class="fgroup" style="grid-column:span 2;">
+          <label class="flabel">Preferred days</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+            <label style="font-size:13px;color:#4d6b80;display:flex;align-items:center;gap:5px;cursor:pointer;font-family:'DM Sans',sans-serif;"><input type="checkbox" id="d-mon" style="accent-color:#2ab4b4;"> Mon</label>
+            <label style="font-size:13px;color:#4d6b80;display:flex;align-items:center;gap:5px;cursor:pointer;font-family:'DM Sans',sans-serif;"><input type="checkbox" id="d-tue" style="accent-color:#2ab4b4;"> Tue</label>
+            <label style="font-size:13px;color:#4d6b80;display:flex;align-items:center;gap:5px;cursor:pointer;font-family:'DM Sans',sans-serif;"><input type="checkbox" id="d-wed" style="accent-color:#2ab4b4;"> Wed</label>
+            <label style="font-size:13px;color:#4d6b80;display:flex;align-items:center;gap:5px;cursor:pointer;font-family:'DM Sans',sans-serif;"><input type="checkbox" id="d-thu" style="accent-color:#2ab4b4;"> Thu</label>
+            <label style="font-size:13px;color:#4d6b80;display:flex;align-items:center;gap:5px;cursor:pointer;font-family:'DM Sans',sans-serif;"><input type="checkbox" id="d-fri" style="accent-color:#2ab4b4;"> Fri</label>
+          </div>
+        </div>
+        <div class="fgroup" style="grid-column:span 2;">
+          <label class="flabel">Additional notes</label>
+          <textarea class="finput" id="f-notes" placeholder="Anything else you'd like us to know — symptoms, concerns, previous treatment…"></textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;display:flex;justify-content:space-between;">
+        <button class="btn-ghost" onclick="prevStep(2)">← Back</button>
+        <button class="btn-primary" onclick="nextStep(2)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: Location ────────────────────────────────────── -->
+  <div id="step-3" class="fcard fade-up" style="display:none;">
+    <div class="fcard-head">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2ab4b4;margin-bottom:4px;font-family:'DM Sans',sans-serif;">Step 3 of 5</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:500;color:#0f2a4d;">Preferred Location</h2>
+      <p style="font-size:13px;color:#4d7daf;margin-top:4px;font-family:'DM Sans',sans-serif;">Select up to two locations — we'll try to match your preference</p>
+    </div>
+    <div class="fcard-body">
+      <div style="display:grid;gap:10px;" id="loc-grid">
+        <!-- filled by JS -->
+      </div>
+      <span class="ferror" id="e-location" style="margin-top:8px;display:none;">Please select at least one location.</span>
+
+      <div style="margin-top:28px;display:flex;justify-content:space-between;">
+        <button class="btn-ghost" onclick="prevStep(3)">← Back</button>
+        <button class="btn-primary" onclick="nextStep(3)">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: Referrer & Insurance ───────────────────────── -->
+  <div id="step-4" class="fcard fade-up" style="display:none;">
+    <div class="fcard-head">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2ab4b4;margin-bottom:4px;font-family:'DM Sans',sans-serif;">Step 4 of 5</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:500;color:#0f2a4d;">Referrer & Insurance</h2>
+      <p style="font-size:13px;color:#4d7daf;margin-top:4px;font-family:'DM Sans',sans-serif;">A referral from your GP or dentist is required to book</p>
+    </div>
+    <div class="fcard-body">
+
+      <!-- Referral info callout -->
+      <div style="background:#f0fbfb;border:1.5px solid rgba(42,180,180,0.2);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;gap:12px;align-items:flex-start;">
+        <svg style="flex-shrink:0;margin-top:2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2ab4b4" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>
+          <p style="font-size:13px;font-weight:600;color:#0f2a4d;margin-bottom:3px;font-family:'DM Sans',sans-serif;">Send your referral letter to us</p>
+          <p style="font-size:13px;color:#4d7daf;line-height:1.6;font-family:'DM Sans',sans-serif;">
+            After submitting this form, please email your referral letter to
+            <a href="mailto:hello@wisdomsurgery.team" style="color:#2ab4b4;font-weight:600;text-decoration:none;">hello@wisdomsurgery.team</a>
+            with your full name in the subject line.
+          </p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="fg-2">
+        <div class="fgroup">
+          <label class="flabel">Referring doctor / dentist <span class="req">*</span></label>
+          <input class="finput" id="f-refname" type="text" placeholder="Dr Jane Smith" />
+          <span class="ferror" id="e-refname">Please enter your referrer's name.</span>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Referrer's practice name</label>
+          <input class="finput" id="f-refpractice" type="text" placeholder="Greenslopes Family Medical" />
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Referral date</label>
+          <input class="finput" id="f-refdate" type="date" />
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Medicare number</label>
+          <input class="finput" id="f-medicare" type="text" placeholder="2345 67890 1" />
+        </div>
+      </div>
+
+      <!-- Health insurance -->
+      <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(42,180,180,0.1);">
+        <p style="font-size:13px;font-weight:600;color:#0f2a4d;margin-bottom:14px;font-family:'DM Sans',sans-serif;">Private health insurance</p>
+        <div style="display:flex;gap:12px;margin-bottom:16px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:#0f2a4d;font-family:'DM Sans',sans-serif;">
+            <input type="radio" name="phi" value="yes" id="phi-yes" style="accent-color:#2ab4b4;" onchange="togglePHI(true)"> Yes
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:#0f2a4d;font-family:'DM Sans',sans-serif;">
+            <input type="radio" name="phi" value="no" id="phi-no" style="accent-color:#2ab4b4;" onchange="togglePHI(false)" checked> No
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:#0f2a4d;font-family:'DM Sans',sans-serif;">
+            <input type="radio" name="phi" value="not-sure" id="phi-notsure" style="accent-color:#2ab4b4;" onchange="togglePHI(false)"> Not sure
+          </label>
+        </div>
+        <div id="phi-fields" style="display:none;grid-template-columns:1fr 1fr;gap:16px;" class="fg-2">
+          <div class="fgroup">
+            <label class="flabel">Health fund</label>
+            <select class="finput" id="f-phifund">
+              <option value="">Select fund…</option>
+              <option>BUPA</option><option>Medibank</option><option>HCF</option>
+              <option>nib</option><option>HBF</option><option>Teachers Health</option>
+              <option>AHM</option><option>Frank</option><option>Other</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Membership number</label>
+            <input class="finput" id="f-phinum" type="text" placeholder="xxxxxxxx" />
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;display:flex;justify-content:space-between;">
+        <button class="btn-ghost" onclick="prevStep(4)">← Back</button>
+        <button class="btn-primary" onclick="nextStep(4)">Review →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 5: Review & Submit ─────────────────────────────── -->
+  <div id="step-5" class="fcard fade-up" style="display:none;">
+    <div class="fcard-head">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2ab4b4;margin-bottom:4px;font-family:'DM Sans',sans-serif;">Step 5 of 5</p>
+      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:500;color:#0f2a4d;">Review & Submit</h2>
+      <p style="font-size:13px;color:#4d7daf;margin-top:4px;font-family:'DM Sans',sans-serif;">Check your details before sending your request</p>
+    </div>
+    <div class="fcard-body">
+      <div id="review-content"></div>
+
+      <!-- Consent -->
+      <div style="margin-top:20px;padding:16px 20px;background:#f8fdfd;border-radius:12px;border:1px solid rgba(42,180,180,0.12);">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="consent-check" style="accent-color:#2ab4b4;margin-top:2px;flex-shrink:0;">
+          <span style="font-size:13px;color:#4d6b80;line-height:1.6;font-family:'DM Sans',sans-serif;">
+            I confirm the information above is accurate and I consent to Wisdom Surgery Clinic contacting me to confirm this appointment request. I understand a referral is required to proceed.
+          </span>
+        </label>
+        <span class="ferror" id="e-consent" style="margin-top:6px;">Please confirm before submitting.</span>
+      </div>
+
+      <div style="margin-top:24px;display:flex;justify-content:space-between;align-items:center;">
+        <button class="btn-ghost" onclick="prevStep(5)">← Back</button>
+        <button class="btn-primary" id="submit-btn" onclick="submitForm()">
+          Send Request
+        </button>
+      </div>
+
+      <!-- Formspree hidden form (submitted via fetch) -->
+      <form id="hidden-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" style="display:none;">
+        <input type="hidden" name="_subject" id="hs-subject" />
+        <input type="hidden" name="Full Name" id="hs-name" />
+        <input type="hidden" name="Date of Birth" id="hs-dob" />
+        <input type="hidden" name="Phone" id="hs-phone" />
+        <input type="hidden" name="Email" id="hs-email" />
+        <input type="hidden" name="Suburb" id="hs-suburb" />
+        <input type="hidden" name="Patient Type" id="hs-patienttype" />
+        <input type="hidden" name="Procedures" id="hs-procedures" />
+        <input type="hidden" name="Urgency" id="hs-urgency" />
+        <input type="hidden" name="Time Preference" id="hs-timeofday" />
+        <input type="hidden" name="Preferred Days" id="hs-days" />
+        <input type="hidden" name="Notes" id="hs-notes" />
+        <input type="hidden" name="Locations" id="hs-locations" />
+        <input type="hidden" name="Referrer" id="hs-refname" />
+        <input type="hidden" name="Referrer Practice" id="hs-refpractice" />
+        <input type="hidden" name="Referral Date" id="hs-refdate" />
+        <input type="hidden" name="Medicare Number" id="hs-medicare" />
+        <input type="hidden" name="Private Health Insurance" id="hs-phi" />
+        <input type="hidden" name="_replyto" id="hs-replyto" />
+      </form>
+    </div>
+  </div>
+
+  <!-- ── SUCCESS ─────────────────────────────────────────────── -->
+  <div id="step-success" style="display:none;" class="fade-up">
+    <div class="fcard" style="padding:52px 32px;text-align:center;">
+      <div class="success-icon" style="margin-bottom:24px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:500;color:#0f2a4d;margin-bottom:10px;">Request Received</h2>
+      <p style="font-size:15px;color:#4d7daf;line-height:1.7;max-width:440px;margin:0 auto 28px;font-family:'DM Sans',sans-serif;">
+        Thank you. Our team will review your request and contact you within one business day to confirm your appointment.
+      </p>
+
+      <!-- Referral reminder -->
+      <div style="background:#f0fbfb;border:1.5px solid rgba(42,180,180,0.2);border-radius:14px;padding:20px 24px;max-width:420px;margin:0 auto 32px;text-align:left;">
+        <p style="font-size:13px;font-weight:700;color:#0f2a4d;margin-bottom:6px;font-family:'DM Sans',sans-serif;">Don't forget your referral letter</p>
+        <p style="font-size:13px;color:#4d7daf;line-height:1.6;font-family:'DM Sans',sans-serif;">
+          Please email your referral letter to<br>
+          <a href="mailto:hello@wisdomsurgery.team" style="color:#2ab4b4;font-weight:600;text-decoration:none;">hello@wisdomsurgery.team</a><br>
+          with your full name as the subject.
+        </p>
+      </div>
+
+      <p style="font-size:13px;color:#9cb8c8;font-family:'DM Sans',sans-serif;">Questions? Call us on <a href="tel:1300111324" style="color:#2ab4b4;text-decoration:none;font-weight:600;">1300 111 324</a></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer style="border-top:1px solid rgba(42,180,180,0.12);padding:32px 20px;margin-top:40px;text-align:center;">
+  <p style="font-size:12px;color:#9cb8c8;font-family:'DM Sans',sans-serif;line-height:1.8;">
+    Wisdom Surgery Clinic · Dr Anna Raymond, Oral & Maxillofacial Surgeon<br>
+    Clinics across Brisbane, Everton Park, Caboolture, Redcliffe &amp; Cleveland<br>
+    <a href="https://wisdomsurgery.clinic" style="color:#2ab4b4;text-decoration:none;">wisdomsurgery.clinic</a> ·
+    <a href="tel:1300111324" style="color:#2ab4b4;text-decoration:none;">1300 111 324</a>
+  </p>
+</footer>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────
+const PROCEDURES = [
+  { id:'wisdom',  label:'Wisdom tooth removal' },
+  { id:'implants', label:'Dental implants' },
+  { id:'bone',    label:'Bone graft / sinus lift' },
+  { id:'jaw',     label:'Jaw (orthognathic) surgery' },
+  { id:'expose',  label:'Orthodontic tooth exposure' },
+  { id:'tissue',  label:'Soft tissue procedure' },
+  { id:'cyst',    label:'Jaw cyst / bone lesion' },
+  { id:'prepros', label:'Pre-prosthetic surgery' },
+  { id:'other',   label:'Not sure / other' },
+];
+
+const LOCATIONS = [
+  { id:'GPH', name:'Greenslopes Private Hospital',       addr:'Newdegate St, Greenslopes' },
+  { id:'NW',  name:'North West Private Hospital',        addr:'137 Flockton St, Everton Park' },
+  { id:'CAB', name:'Caboolture Private Hospital',        addr:'McKean St, Caboolture' },
+  { id:'PEN', name:'Peninsula Private Hospital',         addr:'Cnr George & Florence Sts, Kippa-Ring' },
+  { id:'BPV', name:'Brisbane Private Hospital',          addr:'259 Wickham Tce, Spring Hill' },
+  { id:'RSC', name:'Ramsay Surgical Centre Cleveland',   addr:'Opening August 2026' },
+  { id:'CLE', name:'Cleveland Consulting Rooms',         addr:'Cleveland' },
+  { id:'ANY', name:'No preference',                      addr:'We\'ll find the most suitable location for you' },
+];
+
+// ── State ──────────────────────────────────────────────────────
+let currentStep = 1;
+let selectedProcedures = [];
+let selectedLocations  = [];
+
+// ── Init ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  buildProcGrid();
+  buildLocGrid();
+});
+
+function buildProcGrid() {
+  const g = document.getElementById('proc-grid');
+  g.innerHTML = PROCEDURES.map(p => `
+    <div class="proc-pill" id="pp-${p.id}" onclick="toggleProc('${p.id}')">
+      <div class="proc-check" id="pc-${p.id}">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" style="display:none;" id="pcv-${p.id}"><polyline points="1 4 3.5 6.5 9 1"/></svg>
+      </div>
+      <span style="font-size:13px;color:#0f2a4d;font-family:'DM Sans',sans-serif;">${p.label}</span>
+    </div>`).join('');
+}
+
+function buildLocGrid() {
+  const g = document.getElementById('loc-grid');
+  g.innerHTML = LOCATIONS.map(l => `
+    <div class="loc-card" id="lc-${l.id}" onclick="toggleLoc('${l.id}')">
+      <div class="loc-dot" id="ld-${l.id}"><div class="loc-dot-inner"></div></div>
+      <div>
+        <p style="font-size:14px;font-weight:600;color:#0f2a4d;font-family:'DM Sans',sans-serif;">${l.name}</p>
+        <p style="font-size:12px;color:#4d7daf;margin-top:2px;font-family:'DM Sans',sans-serif;">${l.addr}</p>
+      </div>
+    </div>`).join('');
+}
+
+function toggleProc(id) {
+  const idx = selectedProcedures.indexOf(id);
+  if (idx === -1) selectedProcedures.push(id);
+  else selectedProcedures.splice(idx, 1);
+  const sel = selectedProcedures.includes(id);
+  document.getElementById('pp-' + id).classList.toggle('selected', selectedProcedures.includes(id));
+  document.getElementById('pcv-' + id).style.display = selectedProcedures.includes(id) ? 'block' : 'none';
+}
+
+function toggleLoc(id) {
+  // "No preference" is exclusive
+  if (id === 'ANY') {
+    selectedLocations = ['ANY'];
+  } else {
+    selectedLocations = selectedLocations.filter(l => l !== 'ANY');
+    const idx = selectedLocations.indexOf(id);
+    if (idx === -1 && selectedLocations.length < 2) selectedLocations.push(id);
+    else if (idx !== -1) selectedLocations.splice(idx, 1);
+  }
+  LOCATIONS.forEach(l => {
+    document.getElementById('lc-' + l.id).classList.toggle('selected', selectedLocations.includes(l.id));
+  });
+}
+
+function togglePHI(show) {
+  const f = document.getElementById('phi-fields');
+  f.style.display = show ? 'grid' : 'none';
+}
+
+// ── Validation ─────────────────────────────────────────────────
+function showError(id, msg) {
+  const el = document.getElementById('e-' + id);
+  const inp = document.getElementById('f-' + id);
+  if (el) { el.style.display = 'block'; if (msg) el.textContent = msg; }
+  if (inp) inp.classList.add('invalid');
+  return false;
+}
+function clearError(id) {
+  const el = document.getElementById('e-' + id);
+  const inp = document.getElementById('f-' + id);
+  if (el) el.style.display = 'none';
+  if (inp) inp.classList.remove('invalid');
+}
+
+function validateStep(n) {
+  let ok = true;
+  if (n === 1) {
+    ['firstname','lastname','dob','phone','email','patienttype'].forEach(f => clearError(f));
+    const fn = document.getElementById('f-firstname').value.trim();
+    const ln = document.getElementById('f-lastname').value.trim();
+    const db = document.getElementById('f-dob').value;
+    const ph = document.getElementById('f-phone').value.trim();
+    const em = document.getElementById('f-email').value.trim();
+    const pt = document.getElementById('f-patienttype').value;
+    if (!fn) ok = showError('firstname');
+    if (!ln) ok = showError('lastname');
+    if (!db) ok = showError('dob');
+    if (!ph) ok = showError('phone');
+    if (!em || !/\S+@\S+\.\S+/.test(em)) ok = showError('email', 'Please enter a valid email.');
+    if (!pt) ok = showError('patienttype');
+  }
+  if (n === 2) {
+    clearError('procedure'); clearError('urgency');
+    if (selectedProcedures.length === 0) { document.getElementById('e-procedure').style.display = 'block'; ok = false; }
+    if (!document.getElementById('f-urgency').value) ok = showError('urgency');
+  }
+  if (n === 3) {
+    const el = document.getElementById('e-location');
+    if (selectedLocations.length === 0) { el.style.display = 'block'; ok = false; }
+    else el.style.display = 'none';
+  }
+  if (n === 4) {
+    clearError('refname');
+    if (!document.getElementById('f-refname').value.trim()) ok = showError('refname');
+  }
+  return ok;
+}
+
+// ── Navigation ─────────────────────────────────────────────────
+function nextStep(from) {
+  if (!validateStep(from)) return;
+  if (from === 4) { buildReview(); }
+  goTo(from + 1);
+}
+
+function prevStep(from) { goTo(from - 1); }
+
+function goTo(n) {
+  document.getElementById('step-' + currentStep).style.display = 'none';
+  document.getElementById('step-' + n).style.display = 'block';
+  document.getElementById('step-' + n).classList.remove('fade-up');
+  void document.getElementById('step-' + n).offsetWidth;
+  document.getElementById('step-' + n).classList.add('fade-up');
+  currentStep = n;
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('ps' + i);
+    el.classList.remove('active','done');
+    if (i < currentStep) el.classList.add('done');
+    else if (i === currentStep) el.classList.add('active');
+  }
+}
+
+// ── Review ─────────────────────────────────────────────────────
+function buildReview() {
+  const days = ['Mon','Tue','Wed','Thu','Fri'].filter(d => document.getElementById('d-' + d.toLowerCase()).checked).join(', ') || 'No preference';
+  const phi = document.querySelector('input[name="phi"]:checked');
+  const phiVal = phi ? phi.value : 'No';
+  const phiDetail = phiVal === 'yes'
+    ? ` — ${document.getElementById('f-phifund').value || 'Not specified'}`
+    : '';
+
+  const rows = [
+    ['Name',      v('firstname') + ' ' + v('lastname')],
+    ['Date of Birth', v('dob')],
+    ['Phone',     v('phone')],
+    ['Email',     v('email')],
+    ['Suburb',    v('suburb') || '—'],
+    ['Patient',   v('patienttype')],
+    ['Procedures', selectedProcedures.map(id => PROCEDURES.find(p=>p.id===id)?.label).join(', ')],
+    ['Urgency',   v('urgency')],
+    ['Time',      v('timeofday')],
+    ['Days',      days],
+    ['Locations', selectedLocations.map(id => LOCATIONS.find(l=>l.id===id)?.name).join(', ')],
+    ['Referrer',  v('refname') + (v('refpractice') ? ` — ${v('refpractice')}` : '')],
+    ['Referral date', v('refdate') || '—'],
+    ['Medicare',  v('medicare') || '—'],
+    ['Health insurance', phiVal === 'yes' ? `Yes${phiDetail}` : phiVal === 'no' ? 'No' : 'Not sure'],
+  ];
+
+  document.getElementById('review-content').innerHTML = rows.map(([k, val]) => `
+    <div class="review-row">
+      <span class="review-key">${k}</span>
+      <span class="review-val">${val || '—'}</span>
+    </div>`).join('');
+}
+
+function v(id) { return (document.getElementById('f-' + id)?.value || '').trim(); }
+
+// ── Submit ─────────────────────────────────────────────────────
+async function submitForm() {
+  const consent = document.getElementById('consent-check');
+  const ce = document.getElementById('e-consent');
+  if (!consent.checked) { ce.style.display = 'block'; return; }
+  ce.style.display = 'none';
+
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const days = ['Mon','Tue','Wed','Thu','Fri'].filter(d => document.getElementById('d-' + d.toLowerCase()).checked).join(', ') || 'No preference';
+  const phi = document.querySelector('input[name="phi"]:checked');
+
+  // Fill hidden form fields
+  const fullName = v('firstname') + ' ' + v('lastname');
+  document.getElementById('hs-subject').value   = `Booking Request — ${fullName}`;
+  document.getElementById('hs-name').value       = fullName;
+  document.getElementById('hs-dob').value        = v('dob');
+  document.getElementById('hs-phone').value      = v('phone');
+  document.getElementById('hs-email').value      = v('email');
+  document.getElementById('hs-replyto').value    = v('email');
+  document.getElementById('hs-suburb').value     = v('suburb');
+  document.getElementById('hs-patienttype').value= v('patienttype');
+  document.getElementById('hs-procedures').value = selectedProcedures.map(id => PROCEDURES.find(p=>p.id===id)?.label).join(', ');
+  document.getElementById('hs-urgency').value    = v('urgency');
+  document.getElementById('hs-timeofday').value  = v('timeofday');
+  document.getElementById('hs-days').value       = days;
+  document.getElementById('hs-notes').value      = v('notes');
+  document.getElementById('hs-locations').value  = selectedLocations.map(id => LOCATIONS.find(l=>l.id===id)?.name).join(', ');
+  document.getElementById('hs-refname').value    = v('refname');
+  document.getElementById('hs-refpractice').value= v('refpractice');
+  document.getElementById('hs-refdate').value    = v('refdate');
+  document.getElementById('hs-medicare').value   = v('medicare');
+  document.getElementById('hs-phi').value        = phi ? phi.value : 'no';
+
+  // Submit via fetch to Formspree
+  const form = document.getElementById('hidden-form');
+  const data = new FormData(form);
+
+  try {
+    const res = await fetch(form.action, { method:'POST', body:data, headers:{ Accept:'application/json' } });
+    if (res.ok) {
+      showSuccess();
+    } else {
+      throw new Error('Server error');
+    }
+  } catch(err) {
+    btn.textContent = 'Send Request';
+    btn.disabled = false;
+    alert('Something went wrong. Please call us on 1300 111 324 or email hello@wisdomsurgery.team');
+  }
+}
+
+function showSuccess() {
+  document.getElementById('step-5').style.display = 'none';
+  document.getElementById('prog-wrap').style.display = 'none';
+  document.getElementById('step-success').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
