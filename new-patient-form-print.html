@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>New Patient Registration — Wisdom Surgery Clinic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal:    #2ab4b4;
+    --teal-dk: #1e9696;
+    --navy:    #0f2a4d;
+    --navy-lt: #152d4a;
+    --mid:     #4d6b80;
+    --muted:   #7aa0c6;
+    --border:  #c8dce8;
+    --bg:      #f8fdfd;
+    --line:    #b0ccd8;
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--navy);
+    background: white;
+    line-height: 1.4;
+  }
+
+  /* ── PRINT BUTTON (screen only) ── */
+  .print-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--navy); color: white;
+    padding: 12px 32px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .print-bar span { font-size: 13px; opacity: 0.75; }
+  .print-btn {
+    background: var(--teal); color: white; border: none;
+    padding: 9px 24px; border-radius: 6px; font-size: 13px;
+    font-weight: 600; cursor: pointer; font-family: inherit;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .print-btn:hover { background: var(--teal-dk); }
+  @media print { .print-bar { display: none; } }
+
+  /* ── PAGE ── */
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    padding: 14mm 14mm 12mm;
+    background: white;
+  }
+  @media screen { .page { margin-top: 56px; box-shadow: 0 2px 24px rgba(0,0,0,0.1); } }
+  @media print {
+    body { margin: 0; }
+    .page { width: 100%; padding: 10mm 12mm; margin: 0; box-shadow: none; }
+    .page-break { page-break-before: always; }
+  }
+
+  /* ── HEADER ── */
+  .form-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding-bottom: 10px; margin-bottom: 14px;
+    border-bottom: 2px solid var(--teal);
+  }
+  .form-header-left { }
+  .practice-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px; font-weight: 600; color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .practice-sub {
+    font-size: 10px; color: var(--mid); line-height: 1.5;
+  }
+  .logo-box {
+    width: 130px; height: 46px;
+    display: flex; align-items: center; justify-content: flex-end;
+  }
+  .logo-box img { max-width: 130px; max-height: 46px; object-fit: contain; }
+
+  .form-title-bar {
+    background: var(--navy); color: white;
+    padding: 8px 14px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .form-title-bar h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+  }
+  .form-title-bar span { font-size: 10px; opacity: 0.65; }
+
+  .form-note {
+    background: #e8f7f7; border: 1px solid rgba(42,180,180,0.25);
+    border-radius: 6px; padding: 8px 12px; margin-bottom: 14px;
+    font-size: 10px; color: var(--mid); line-height: 1.6;
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-head {
+    display: flex; align-items: center; gap: 8px;
+    margin: 14px 0 10px;
+  }
+  .section-head-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--teal); color: white;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-head h2 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--navy);
+    flex: 1;
+  }
+  .section-head::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .sub-head {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--teal-dk);
+    margin: 10px 0 6px; padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── FIELD GRID ── */
+  .grid { display: grid; gap: 7px 12px; margin-bottom: 4px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .g-title { grid-template-columns: 100px 1fr 1fr 1fr 80px; }
+  .span2 { grid-column: span 2; }
+  .span3 { grid-column: span 3; }
+  .span4 { grid-column: span 4; }
+
+  /* ── FIELD ── */
+  .field { display: flex; flex-direction: column; gap: 3px; }
+  .field label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--mid);
+  }
+  .field label .req { color: var(--teal); margin-left: 2px; }
+  .field label .opt { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: 4px; font-size: 9px; }
+  .write-line {
+    border: none; border-bottom: 1px solid var(--line);
+    height: 20px; width: 100%; background: transparent;
+  }
+  .write-box {
+    border: 1px solid var(--line); border-radius: 4px;
+    width: 100%; background: transparent;
+  }
+  .write-box.sm  { height: 36px; }
+  .write-box.md  { height: 54px; }
+  .write-box.lg  { height: 80px; }
+  .write-box.xl  { height: 110px; }
+  .write-box.xxl { height: 450px; }
+
+  /* ── CHECKBOX / RADIO ROWS ── */
+  .check-row {
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    margin-top: 2px;
+  }
+  .check-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 10px; color: var(--navy);
+  }
+  .check-box {
+    width: 11px; height: 11px;
+    border: 1px solid var(--line); border-radius: 2px;
+    flex-shrink: 0; background: white;
+  }
+  .radio-circle {
+    width: 11px; height: 11px;
+    border: 1px solid var(--line); border-radius: 50%;
+    flex-shrink: 0; background: white;
+  }
+
+  /* ── CONDITION GRID ── */
+  .condition-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 4px 8px; margin-top: 4px;
+  }
+  .condition-item { display: flex; align-items: center; gap: 5px; font-size: 10px; }
+
+  /* ── SIGNATURE AREA ── */
+  .sig-area {
+    border: 1px solid var(--line); border-radius: 4px;
+    height: 60px; width: 100%;
+    display: flex; align-items: flex-end; justify-content: flex-end;
+    padding: 4px 8px;
+  }
+  .sig-area span { font-size: 8px; color: var(--muted); }
+
+  /* ── CONSENT BLOCK ── */
+  .consent-block {
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 8px 10px; margin-bottom: 7px;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .consent-check { margin-top: 2px; flex-shrink: 0; }
+  .consent-title { font-size: 10px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .consent-body { font-size: 9.5px; color: var(--mid); line-height: 1.55; }
+
+  /* ── FINANCIAL CARDS ── */
+  .fin-card {
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 10px; margin-bottom: 6px;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .fin-card-radio { margin-top: 2px; flex-shrink: 0; }
+  .fin-card-text { font-size: 10px; color: var(--navy); }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+  /* ── FOOTER ── */
+  .form-footer {
+    margin-top: 14px; padding-top: 8px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .form-footer span { font-size: 9px; color: var(--muted); }
+
+  @media print {
+    .page-break { page-break-before: always; padding-top: 8mm; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Print bar (screen only) -->
+<div class="print-bar">
+  <span>Wisdom Surgery Clinic — New Patient Registration Form</span>
+  <button class="print-btn" onclick="window.print()">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Print / Save as PDF
+  </button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="form-header">
+    <div class="form-header-left">
+      <div class="practice-name">Wisdom Surgery Clinic</div>
+      <div class="practice-sub">
+        Oral &amp; Maxillofacial Surgery — Dr Anna Raymond<br/>
+        1300 111 324 &nbsp;·&nbsp; adminteam@wisdomsurgery.clinic &nbsp;·&nbsp; wisdomsurgery.me
+      </div>
+    </div>
+    <div class="logo-box">
+      <img src="https://anna-bryan-joys.github.io/wisdomsurgery/brand_assets/Wisdomsurgery%20Clinic%20ALT%20logo%20transparent%20bg%20-%20rectangle%20version%202.PNG"
+           alt="Wisdom Surgery Clinic" />
+    </div>
+  </div>
+
+  <div class="form-title-bar">
+    <h1>New Patient Registration</h1>
+    <span>Please print clearly in block letters &nbsp;·&nbsp; All fields marked <span style="color:#7dd8d8">*</span> are required</span>
+  </div>
+
+  <div class="form-note">
+    This form may be completed at home and brought to your appointment, or handed to reception on arrival.
+    Alternatively, complete the form online at <strong>wisdomsurgery.me</strong> → Patient Information → New Patient Form.
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 1 — PERSONAL DETAILS
+  ══════════════════════════════════════ -->
+  <div class="section-head">
+    <div class="section-head-num">1</div>
+    <h2>Patient Personal Details</h2>
+  </div>
+
+  <div class="grid g-title">
+    <div class="field">
+      <label>Title <span class="req">*</span></label>
+      <div class="check-row" style="flex-direction:column;gap:4px;">
+        <div class="check-item"><div class="radio-circle"></div> Mr</div>
+        <div class="check-item"><div class="radio-circle"></div> Mrs</div>
+        <div class="check-item"><div class="radio-circle"></div> Ms</div>
+        <div class="check-item"><div class="radio-circle"></div> Miss</div>
+        <div class="check-item"><div class="radio-circle"></div> Dr</div>
+        <div class="check-item"><div class="radio-circle"></div> Mx</div>
+      </div>
+    </div>
+    <div class="field span3">
+      <label>Surname <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Date of Birth <span class="req">*</span></label>
+      <div class="write-line"></div>
+      <div style="font-size:8px;color:var(--muted);margin-top:2px;">DD / MM / YYYY</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:7px;">
+    <div class="field">
+      <label>Given Name(s) <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Preferred Name <span class="opt">optional</span></label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:7px;">
+    <div class="field">
+      <label>Gender</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> Male</div>
+        <div class="check-item"><div class="radio-circle"></div> Female</div>
+        <div class="check-item"><div class="radio-circle"></div> Non-binary</div>
+        <div class="check-item"><div class="radio-circle"></div> Prefer not to say</div>
+        <div class="check-item"><div class="radio-circle"></div> Other:</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Pronouns <span class="opt">optional</span></label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> He/Him</div>
+        <div class="check-item"><div class="radio-circle"></div> She/Her</div>
+        <div class="check-item"><div class="radio-circle"></div> They/Them</div>
+        <div class="check-item"><div class="radio-circle"></div> Other:</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Country of Birth</label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="sub-head" style="margin-top:10px;">Contact Details</div>
+
+  <div class="grid g2">
+    <div class="field">
+      <label>Street Address <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Postal Address <span class="opt">if different</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Suburb <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Postal Suburb</label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="grid g4" style="margin-top:7px;">
+    <div class="field">
+      <label>State <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Postcode <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Postal State</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Postal Postcode</label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:7px;">
+    <div class="field">
+      <label>Mobile <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Home Phone</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Email <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:7px;">
+    <div class="field">
+      <label>Occupation <span class="opt">optional</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Preferred Language</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Interpreter Required?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:7px;">
+    <div class="field">
+      <label>Aboriginal / Torres Strait Islander</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Aboriginal</div>
+        <div class="check-item"><div class="radio-circle"></div> TSI</div>
+        <div class="check-item"><div class="radio-circle"></div> Both</div>
+        <div class="check-item"><div class="radio-circle"></div> Prefer not</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Live Alone?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Carer or Support Person?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 2 — MEDICARE & FUNDING
+  ══════════════════════════════════════ -->
+  <div class="section-head" style="margin-top:16px;">
+    <div class="section-head-num">2</div>
+    <h2>Medicare &amp; Health Funding</h2>
+  </div>
+
+  <div class="sub-head">Medicare</div>
+  <div class="grid g4">
+    <div class="field span2">
+      <label>Medicare Card Number</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Reference No.</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Expiry (MM/YYYY)</label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="sub-head" style="margin-top:10px;">Concession / Pension</div>
+  <div class="grid g3">
+    <div class="field">
+      <label>Pension / Concession Type</label>
+      <div class="check-row" style="flex-wrap:wrap;">
+        <div class="check-item"><div class="radio-circle"></div> None</div>
+        <div class="check-item"><div class="radio-circle"></div> Pension</div>
+        <div class="check-item"><div class="radio-circle"></div> Health Care Card</div>
+        <div class="check-item"><div class="radio-circle"></div> CSHC</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Card Number</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Expiry</label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="sub-head" style="margin-top:10px;">DVA</div>
+  <div class="grid g4">
+    <div class="field span2">
+      <label>DVA File Number</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Card Colour</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> Gold</div>
+        <div class="check-item"><div class="radio-circle"></div> White</div>
+        <div class="check-item"><div class="radio-circle"></div> Orange</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>DVA Transport?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-head" style="margin-top:10px;">Private Health Insurance</div>
+  <div class="grid g4">
+    <div class="field span2">
+      <label>Fund Name</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Membership Number</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Policy / Group No.</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field span2">
+      <label>Second Fund Name <span class="opt">if applicable</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field span2">
+      <label>Second Fund Membership No.</label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PAGE 2
+  ══════════════════════════════════════ -->
+  <div class="page-break">
+
+  <!-- Repeat mini-header on page 2 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:6px;margin-bottom:12px;border-bottom:1px solid var(--border);">
+    <span style="font-size:10px;color:var(--mid);">Wisdom Surgery Clinic — New Patient Registration</span>
+    <img src="https://anna-bryan-joys.github.io/wisdomsurgery/brand_assets/Wisdomsurgery%20Clinic%20ALT%20logo%20transparent%20bg%20-%20rectangle%20version%202.PNG"
+         alt="" style="height:28px;width:auto;object-fit:contain;"/>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 3 — EMERGENCY CONTACT & REFERRAL
+  ══════════════════════════════════════ -->
+  <div class="section-head">
+    <div class="section-head-num">3</div>
+    <h2>Emergency Contact &amp; Referral</h2>
+  </div>
+
+  <div class="sub-head">Emergency Contact</div>
+  <div class="grid g4">
+    <div class="field span2">
+      <label>Full Name <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Relationship <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Mobile <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field span2">
+      <label>Home / Work Phone <span class="opt">optional</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field span2">
+      <label>Authorise to discuss health info?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+      </div>
+    </div>
+    <div class="field span4">
+      <label>Also acts as Legal Decision-Maker / Guardian?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes — EPOA / Guardian / Parent</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-head" style="margin-top:10px;">Referral Details</div>
+  <div class="grid g2">
+    <div class="field">
+      <label>Referring Doctor / Dentist</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Referrer Phone</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field span2">
+      <label>Reason for Referral / Chief Complaint</label>
+      <div class="write-box md"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 4 — HEALTH HISTORY
+  ══════════════════════════════════════ -->
+  <div class="section-head" style="margin-top:14px;">
+    <div class="section-head-num">4</div>
+    <h2>Health History</h2>
+  </div>
+
+  <div class="sub-head">General Health</div>
+  <div class="grid g2">
+    <div class="field">
+      <label>Usual GP / Medical Centre</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Allergies</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No Known Allergies</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes — I have allergies</div>
+      </div>
+    </div>
+    <div class="field span2">
+      <label>If yes — please list all allergies and reactions</label>
+      <div class="write-box sm"></div>
+    </div>
+  </div>
+
+  <div class="sub-head" style="margin-top:10px;">Current Medications</div>
+  <div class="grid g2">
+    <div class="field span2">
+      <label>List all medications — prescribed, OTC, vitamins, supplements (include doses and frequency)</label>
+      <div class="write-box md"></div>
+    </div>
+    <div class="field span2">
+      <label>Are you taking any of the following? <span class="opt">tick all that apply</span></label>
+      <div class="check-row">
+        <div class="check-item"><div class="check-box"></div> Warfarin</div>
+        <div class="check-item"><div class="check-box"></div> Aspirin (daily)</div>
+        <div class="check-item"><div class="check-box"></div> Clopidogrel (Plavix)</div>
+        <div class="check-item"><div class="check-box"></div> Rivaroxaban (Xarelto)</div>
+        <div class="check-item"><div class="check-box"></div> Apixaban (Eliquis)</div>
+        <div class="check-item"><div class="check-box"></div> Other blood thinners</div>
+        <div class="check-item"><div class="check-box"></div> Long-term Steroids</div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- end page 2 -->
+
+
+  <!-- ══════════════════════════════════════
+       PAGE 3
+  ══════════════════════════════════════ -->
+  <div class="page-break">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:6px;margin-bottom:12px;border-bottom:1px solid var(--border);">
+    <span style="font-size:10px;color:var(--mid);">Wisdom Surgery Clinic — New Patient Registration</span>
+    <img src="https://anna-bryan-joys.github.io/wisdomsurgery/brand_assets/Wisdomsurgery%20Clinic%20ALT%20logo%20transparent%20bg%20-%20rectangle%20version%202.PNG"
+         alt="" style="height:28px;width:auto;object-fit:contain;"/>
+  </div>
+
+  <div class="sub-head">Past Medical Conditions <span style="font-weight:400;text-transform:none;letter-spacing:0;">— tick all that apply</span></div>
+  <div class="condition-grid">
+    <div class="condition-item"><div class="check-box"></div> Diabetes</div>
+    <div class="condition-item"><div class="check-box"></div> Hypertension</div>
+    <div class="condition-item"><div class="check-box"></div> Heart Disease / Angina</div>
+    <div class="condition-item"><div class="check-box"></div> Heart Failure</div>
+    <div class="condition-item"><div class="check-box"></div> Pacemaker / Defibrillator</div>
+    <div class="condition-item"><div class="check-box"></div> Stroke / TIA</div>
+    <div class="condition-item"><div class="check-box"></div> Epilepsy</div>
+    <div class="condition-item"><div class="check-box"></div> Asthma / COPD</div>
+    <div class="condition-item"><div class="check-box"></div> Bleeding / Clotting Disorder</div>
+    <div class="condition-item"><div class="check-box"></div> Thyroid Condition</div>
+    <div class="condition-item"><div class="check-box"></div> Arthritis</div>
+    <div class="condition-item"><div class="check-box"></div> Osteoporosis / Osteopenia</div>
+    <div class="condition-item"><div class="check-box"></div> Kidney Disease</div>
+    <div class="condition-item"><div class="check-box"></div> Liver Disease</div>
+    <div class="condition-item"><div class="check-box"></div> HIV / AIDS</div>
+    <div class="condition-item"><div class="check-box"></div> Hepatitis B or C</div>
+    <div class="condition-item"><div class="check-box"></div> Cancer (current or past)</div>
+    <div class="condition-item"><div class="check-box"></div> Head / Neck Radiation</div>
+    <div class="condition-item"><div class="check-box"></div> Bisphosphonate / Denosumab</div>
+    <div class="condition-item"><div class="check-box"></div> Immunosuppression</div>
+    <div class="condition-item"><div class="check-box"></div> Depression / Anxiety</div>
+    <div class="condition-item"><div class="check-box"></div> Sleep Apnoea</div>
+    <div class="condition-item"><div class="check-box"></div> GORD / Reflux</div>
+  </div>
+
+  <!-- ★ PULLED DOWN WITH EXTRA SPACE for handwriting ★ -->
+  <div class="field" style="margin-top: 20px;">
+    <label>Other medical history, surgeries or hospitalisations</label>
+    <div style="font-size:9px;color:var(--muted);margin-bottom:6px;">Include any other conditions, previous surgeries, hospitalisations, or anything else your surgeon should know.</div>
+    <div class="write-box xxl"></div>
+  </div>
+
+  <div class="sub-head" style="margin-top:14px;">Anaesthetic &amp; Surgical History</div>
+  <div class="grid g2">
+    <div class="field">
+      <label>Previous anaesthetic?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Any adverse anaesthetic reactions?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <div class="check-item"><div class="radio-circle"></div> Unsure</div>
+      </div>
+    </div>
+    <div class="field span2">
+      <label>If yes / unsure — describe the reaction</label>
+      <div class="write-box sm"></div>
+    </div>
+    <div class="field">
+      <label>Previous oral / jaw surgery?</label>
+      <div class="check-row">
+        <div class="check-item"><div class="radio-circle"></div> No</div>
+        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>If yes — details (procedure, date, where)</label>
+      <div class="write-box sm"></div>
+    </div>
+  </div>
+
+  <div class="sub-head" style="margin-top:10px;">Lifestyle</div>
+  <div class="grid g3">
+    <div class="field">
+      <label>Smoking / Tobacco use</label>
+      <div class="check-row" style="flex-direction:column;gap:3px;">
+        <div class="check-item"><div class="radio-circle"></div> Non-smoker</div>
+        <div class="check-item"><div class="radio-circle"></div> Current smoker</div>
+        <div class="check-item"><div class="radio-circle"></div> Ex-smoker</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Alcohol use</label>
+      <div class="check-row" style="flex-direction:column;gap:3px;">
+        <div class="check-item"><div class="radio-circle"></div> None</div>
+        <div class="check-item"><div class="radio-circle"></div> Occasional</div>
+        <div class="check-item"><div class="radio-circle"></div> Moderate (≤14/wk)</div>
+        <div class="check-item"><div class="radio-circle"></div> Heavy (&gt;14/wk)</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Pregnancy / Breastfeeding</label>
+      <div class="check-row" style="flex-direction:column;gap:3px;">
+        <div class="check-item"><div class="radio-circle"></div> Not applicable</div>
+        <div class="check-item"><div class="radio-circle"></div> Not pregnant</div>
+        <div class="check-item"><div class="radio-circle"></div> Pregnant</div>
+        <div class="check-item"><div class="radio-circle"></div> Breastfeeding</div>
+        <div class="check-item"><div class="radio-circle"></div> Possibly pregnant</div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- end page 3 -->
+
+
+  <!-- ══════════════════════════════════════
+       PAGE 4 — CONSENT & SIGNATURE
+  ══════════════════════════════════════ -->
+  <div class="page-break">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:6px;margin-bottom:12px;border-bottom:1px solid var(--border);">
+    <span style="font-size:10px;color:var(--mid);">Wisdom Surgery Clinic — New Patient Registration</span>
+    <img src="https://anna-bryan-joys.github.io/wisdomsurgery/brand_assets/Wisdomsurgery%20Clinic%20ALT%20logo%20transparent%20bg%20-%20rectangle%20version%202.PNG"
+         alt="" style="height:28px;width:auto;object-fit:contain;"/>
+  </div>
+
+  <div class="section-head">
+    <div class="section-head-num">5</div>
+    <h2>Consent &amp; Signature</h2>
+  </div>
+
+  <div class="consent-block">
+    <div class="consent-check"><div class="check-box"></div></div>
+    <div>
+      <div class="consent-title">Privacy Policy &amp; Information Collection</div>
+      <div class="consent-body">I consent to the collection, use and disclosure of my personal health information for the purpose of providing medical and surgical services, processing billing (including Medicare and DVA), and sending appointment reminders. Information is handled in accordance with the <em>Privacy Act 1988</em> (Cth) and Australian Privacy Principles.</div>
+    </div>
+  </div>
+
+  <div class="consent-block">
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
+      <div class="check-item"><div class="radio-circle"></div> I <strong>agree</strong> to this practice uploading letters and documents to my My Health Record</div>
+      <div class="check-item"><div class="radio-circle"></div> I <strong>decline</strong> to have reports or correspondence uploaded to My Health Record by this practice</div>
+    </div>
+  </div>
+
+  <div class="consent-block">
+    <div class="consent-check"><div class="check-box"></div></div>
+    <div>
+      <div class="consent-title">AI Clinical Scribe — Lyrebird Health</div>
+      <div class="consent-body">I consent to the use of Lyrebird Health AI scribe during my consultations to assist with clinical documentation. All transcription occurs within Australia. Audio is destroyed immediately after transcription. Notes are reviewed and approved by Dr Raymond. I may withdraw consent at any time without affecting my care.</div>
+    </div>
+  </div>
+
+  <div class="consent-block">
+    <div class="consent-check"><div class="check-box"></div></div>
+    <div>
+      <div class="consent-title">Communication Consent</div>
+      <div class="consent-body">I consent to receiving appointment reminders, recalls, invoices, and other communications via email, SMS, and/or post using the contact details provided.</div>
+    </div>
+  </div>
+
+  <div class="consent-block">
+    <div class="consent-check"><div class="check-box"></div></div>
+    <div>
+      <div class="consent-title">Accuracy of Information</div>
+      <div class="consent-body">I certify that the information provided in this form is accurate and complete to the best of my knowledge. I understand it is my ongoing responsibility to inform the practice of any changes to my health, medications, personal, or insurance details prior to future appointments.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:12px;">
+    <div class="field">
+      <label>Patient Full Name (print) <span class="req">*</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Date</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Legal Decision-Maker / Guardian Full Name <span class="opt">if applicable</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Relationship to Patient</label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="field" style="margin-top:10px;">
+    <label>Signature <span class="req">*</span></label>
+    <div class="sig-area"><span>Sign within box</span></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION 6 — FINANCIAL RESPONSIBILITY
+  ══════════════════════════════════════ -->
+  <div class="section-head" style="margin-top:16px;">
+    <div class="section-head-num">6</div>
+    <h2>Financial Responsibility</h2>
+  </div>
+
+  <div style="font-size:10px;color:var(--mid);margin-bottom:8px;line-height:1.55;">
+    Please nominate the <strong style="color:var(--navy);">Account Holder</strong> — the person responsible for all fees. Tick one option.
+  </div>
+
+  <div class="fin-card">
+    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+    <div class="fin-card-text">I am the patient, I am 18+ years old, and I accept financial responsibility</div>
+  </div>
+  <div class="fin-card">
+    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+    <div class="fin-card-text">The patient is under 18 — I am the parent or legal guardian</div>
+  </div>
+  <div class="fin-card">
+    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+    <div class="fin-card-text">Another individual has agreed to be the Account Holder (patient 18+)</div>
+  </div>
+  <div class="fin-card">
+    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+    <div class="fin-card-text">A third-party organisation will be paying (e.g. DVA, WorkCover)</div>
+  </div>
+
+  <div style="font-size:9.5px;color:var(--mid);margin:8px 0 10px;line-height:1.6;background:#f0fbfb;border:1px solid rgba(42,180,180,0.2);border-radius:6px;padding:8px 10px;">
+    <strong style="color:var(--navy);">If not the patient</strong> — please complete below. Being an Account Holder does not entitle you to confidential medical information or treatment decisions.
+  </div>
+
+  <div class="grid g2">
+    <div class="field">
+      <label>Account Holder Full Name <span class="opt">if not the patient</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Relationship to Patient</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field">
+      <label>Phone</label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field span2">
+      <label>Mailing Address <span class="opt">if different from patient</span></label>
+      <div class="write-line"></div>
+    </div>
+    <div class="field span2">
+      <label>Organisation Name <span class="opt">DVA / WorkCover / Other — if applicable</span></label>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="consent-block" style="margin-top:10px;">
+    <div class="consent-check"><div class="check-box"></div></div>
+    <div>
+      <div class="consent-title">Financial Responsibility Agreement</div>
+      <div class="consent-body">I accept responsibility for all consultation, surgical, review, and associated fees. I understand that a fee estimate will be provided before surgery is booked; consultation fees are payable at time of booking; surgical fees are payable in full before the procedure date. Late cancellations (less than 48 hours) may incur an administrative fee. Wisdom Surgery Clinic does not participate in no-gap or known-gap schemes — an out-of-pocket cost will typically apply.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="form-footer">
+    <span>Wisdom Surgery Clinic &nbsp;·&nbsp; 1300 111 324 &nbsp;·&nbsp; adminteam@wisdomsurgery.clinic &nbsp;·&nbsp; wisdomsurgery.me</span>
+    <span>New Patient Registration — v1 2026</span>
+  </div>
+
+  </div><!-- end page 4 -->
+
+</div><!-- .page -->
+</body>
+</html>
