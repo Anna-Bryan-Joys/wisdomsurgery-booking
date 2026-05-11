@@ -65,15 +65,12 @@
     padding-bottom: 10px; margin-bottom: 14px;
     border-bottom: 2px solid var(--teal);
   }
-  .form-header-left { }
   .practice-name {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 18px; font-weight: 600; color: var(--navy);
     margin-bottom: 2px;
   }
-  .practice-sub {
-    font-size: 10px; color: var(--mid); line-height: 1.5;
-  }
+  .practice-sub { font-size: 10px; color: var(--mid); line-height: 1.5; }
   .logo-box {
     width: 130px; height: 46px;
     display: flex; align-items: center; justify-content: flex-end;
@@ -112,12 +109,9 @@
   }
   .section-head h2 {
     font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--navy);
-    flex: 1;
+    text-transform: uppercase; color: var(--navy); flex: 1;
   }
-  .section-head::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
+  .section-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   .sub-head {
     font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
@@ -144,38 +138,74 @@
   }
   .field label .req { color: var(--teal); margin-left: 2px; }
   .field label .opt { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: 4px; font-size: 9px; }
-  .write-line {
-    border: none; border-bottom: 1px solid var(--line);
-    height: 20px; width: 100%; background: transparent;
+
+  /* ── WRITE LINE (single-line text input) ── */
+  input.write-line {
+    border: none; border-bottom: 1.5px solid var(--line);
+    height: 22px; width: 100%; background: transparent;
+    outline: none; font-family: inherit; font-size: 11px;
+    color: var(--navy); padding: 2px 4px; display: block;
   }
-  .write-box {
+  input.write-line:focus { border-bottom-color: var(--teal); }
+  @media print { input.write-line { border-bottom: 1.5px solid var(--line); padding: 2px 0; } }
+
+  /* ── WRITE BOX (auto-growing textarea) ── */
+  textarea.write-box {
     border: 1px solid var(--line); border-radius: 4px;
     width: 100%; background: transparent;
+    outline: none; font-family: inherit; font-size: 11px;
+    color: var(--navy); padding: 6px 8px;
+    resize: none; overflow: hidden; line-height: 1.5;
+    display: block;
   }
-  .write-box.sm  { height: 36px; }
-  .write-box.md  { height: 54px; }
-  .write-box.lg  { height: 80px; }
-  .write-box.xl  { height: 110px; }
-  .write-box.xxl { height: 450px; }
+  textarea.write-box:focus { border-color: var(--teal); }
+  textarea.write-box.sm  { min-height: 36px; }
+  textarea.write-box.md  { min-height: 54px; }
+  textarea.write-box.lg  { min-height: 80px; }
+  textarea.write-box.xl  { min-height: 110px; }
+  textarea.write-box.xxl { min-height: 450px; }
+  @media print {
+    textarea.write-box { overflow: visible; }
+    textarea.write-box.sm  { min-height: 36px; }
+    textarea.write-box.md  { min-height: 54px; }
+    textarea.write-box.lg  { min-height: 80px; }
+    textarea.write-box.xl  { min-height: 110px; }
+    textarea.write-box.xxl { min-height: 450px; }
+  }
+
+  /* ── RADIO & CHECKBOX ── */
+  input[type="radio"], input[type="checkbox"] {
+    -webkit-appearance: none; appearance: none;
+    width: 11px; height: 11px;
+    border: 1.5px solid var(--line);
+    background: white; cursor: pointer;
+    flex-shrink: 0; margin: 0; display: inline-block;
+    vertical-align: middle; position: relative;
+  }
+  input[type="radio"] { border-radius: 50%; }
+  input[type="checkbox"] { border-radius: 2px; }
+  input[type="radio"]:checked {
+    background: var(--teal); border-color: var(--teal);
+    box-shadow: inset 0 0 0 2px white, inset 0 0 0 6px var(--teal);
+  }
+  input[type="checkbox"]:checked { background: var(--teal); border-color: var(--teal); }
+  input[type="checkbox"]:checked::after {
+    content: '✓'; position: absolute; top: -1px; left: 1px;
+    font-size: 9px; color: white; line-height: 11px;
+  }
+  @media print {
+    input[type="radio"], input[type="checkbox"] {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+  }
 
   /* ── CHECKBOX / RADIO ROWS ── */
   .check-row {
-    display: flex; flex-wrap: wrap; gap: 6px 14px;
-    margin-top: 2px;
+    display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 2px;
   }
-  .check-item {
+  label.check-item {
     display: flex; align-items: center; gap: 5px;
-    font-size: 10px; color: var(--navy);
-  }
-  .check-box {
-    width: 11px; height: 11px;
-    border: 1px solid var(--line); border-radius: 2px;
-    flex-shrink: 0; background: white;
-  }
-  .radio-circle {
-    width: 11px; height: 11px;
-    border: 1px solid var(--line); border-radius: 50%;
-    flex-shrink: 0; background: white;
+    font-size: 10px; color: var(--navy); cursor: pointer;
   }
 
   /* ── CONDITION GRID ── */
@@ -183,7 +213,10 @@
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: 4px 8px; margin-top: 4px;
   }
-  .condition-item { display: flex; align-items: center; gap: 5px; font-size: 10px; }
+  label.condition-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 10px; cursor: pointer;
+  }
 
   /* ── SIGNATURE AREA ── */
   .sig-area {
@@ -259,12 +292,11 @@
 
   <div class="form-title-bar">
     <h1>New Patient Registration</h1>
-    <span>Please print clearly in block letters &nbsp;·&nbsp; All fields marked <span style="color:#7dd8d8">*</span> are required</span>
+    <span>Type directly into this form, then Print / Save as PDF &nbsp;·&nbsp; Fields marked <span style="color:#7dd8d8">*</span> are required</span>
   </div>
 
   <div class="form-note">
-    This form may be completed at home and brought to your appointment, or handed to reception on arrival.
-    Alternatively, complete the form online at <strong>wisdomsurgery.me</strong> → Patient Information → New Patient Form.
+    Type your answers directly into this form in your browser — fields expand as you type. When complete, click <strong>Print / Save as PDF</strong> above to save or print. You can also print blank and handwrite. To complete online, visit <strong>wisdomsurgery.me</strong> → Patient Information → New Patient Form.
   </div>
 
   <!-- ══════════════════════════════════════
@@ -279,21 +311,21 @@
     <div class="field">
       <label>Title <span class="req">*</span></label>
       <div class="check-row" style="flex-direction:column;gap:4px;">
-        <div class="check-item"><div class="radio-circle"></div> Mr</div>
-        <div class="check-item"><div class="radio-circle"></div> Mrs</div>
-        <div class="check-item"><div class="radio-circle"></div> Ms</div>
-        <div class="check-item"><div class="radio-circle"></div> Miss</div>
-        <div class="check-item"><div class="radio-circle"></div> Dr</div>
-        <div class="check-item"><div class="radio-circle"></div> Mx</div>
+        <label class="check-item"><input type="radio" name="title" value="Mr"> Mr</label>
+        <label class="check-item"><input type="radio" name="title" value="Mrs"> Mrs</label>
+        <label class="check-item"><input type="radio" name="title" value="Ms"> Ms</label>
+        <label class="check-item"><input type="radio" name="title" value="Miss"> Miss</label>
+        <label class="check-item"><input type="radio" name="title" value="Dr"> Dr</label>
+        <label class="check-item"><input type="radio" name="title" value="Mx"> Mx</label>
       </div>
     </div>
     <div class="field span3">
       <label>Surname <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Date of Birth <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line" placeholder="DD / MM / YYYY"/>
       <div style="font-size:8px;color:var(--muted);margin-top:2px;">DD / MM / YYYY</div>
     </div>
   </div>
@@ -301,11 +333,11 @@
   <div class="grid g2" style="margin-top:7px;">
     <div class="field">
       <label>Given Name(s) <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Preferred Name <span class="opt">optional</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
@@ -313,25 +345,25 @@
     <div class="field">
       <label>Gender</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> Male</div>
-        <div class="check-item"><div class="radio-circle"></div> Female</div>
-        <div class="check-item"><div class="radio-circle"></div> Non-binary</div>
-        <div class="check-item"><div class="radio-circle"></div> Prefer not to say</div>
-        <div class="check-item"><div class="radio-circle"></div> Other:</div>
+        <label class="check-item"><input type="radio" name="gender" value="Male"> Male</label>
+        <label class="check-item"><input type="radio" name="gender" value="Female"> Female</label>
+        <label class="check-item"><input type="radio" name="gender" value="Non-binary"> Non-binary</label>
+        <label class="check-item"><input type="radio" name="gender" value="Prefer not"> Prefer not to say</label>
+        <label class="check-item"><input type="radio" name="gender" value="Other"> Other:</label>
       </div>
     </div>
     <div class="field">
       <label>Pronouns <span class="opt">optional</span></label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> He/Him</div>
-        <div class="check-item"><div class="radio-circle"></div> She/Her</div>
-        <div class="check-item"><div class="radio-circle"></div> They/Them</div>
-        <div class="check-item"><div class="radio-circle"></div> Other:</div>
+        <label class="check-item"><input type="radio" name="pronouns" value="He/Him"> He/Him</label>
+        <label class="check-item"><input type="radio" name="pronouns" value="She/Her"> She/Her</label>
+        <label class="check-item"><input type="radio" name="pronouns" value="They/Them"> They/Them</label>
+        <label class="check-item"><input type="radio" name="pronouns" value="Other"> Other:</label>
       </div>
     </div>
     <div class="field">
       <label>Country of Birth</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
@@ -340,70 +372,70 @@
   <div class="grid g2">
     <div class="field">
       <label>Street Address <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Postal Address <span class="opt">if different</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Suburb <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Postal Suburb</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
   <div class="grid g4" style="margin-top:7px;">
     <div class="field">
       <label>State <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Postcode <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Postal State</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Postal Postcode</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
   <div class="grid g3" style="margin-top:7px;">
     <div class="field">
       <label>Mobile <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Home Phone</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Email <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
   <div class="grid g3" style="margin-top:7px;">
     <div class="field">
       <label>Occupation <span class="opt">optional</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Preferred Language</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Interpreter Required?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <label class="check-item"><input type="radio" name="interpreter" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="interpreter" value="Yes"> Yes</label>
       </div>
     </div>
   </div>
@@ -412,25 +444,25 @@
     <div class="field">
       <label>Aboriginal / Torres Strait Islander</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Aboriginal</div>
-        <div class="check-item"><div class="radio-circle"></div> TSI</div>
-        <div class="check-item"><div class="radio-circle"></div> Both</div>
-        <div class="check-item"><div class="radio-circle"></div> Prefer not</div>
+        <label class="check-item"><input type="radio" name="atsi" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="atsi" value="Aboriginal"> Aboriginal</label>
+        <label class="check-item"><input type="radio" name="atsi" value="TSI"> TSI</label>
+        <label class="check-item"><input type="radio" name="atsi" value="Both"> Both</label>
+        <label class="check-item"><input type="radio" name="atsi" value="Prefer not"> Prefer not</label>
       </div>
     </div>
     <div class="field">
       <label>Live Alone?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <label class="check-item"><input type="radio" name="live-alone" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="live-alone" value="Yes"> Yes</label>
       </div>
     </div>
     <div class="field">
       <label>Carer or Support Person?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <label class="check-item"><input type="radio" name="carer" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="carer" value="Yes"> Yes</label>
       </div>
     </div>
   </div>
@@ -447,15 +479,15 @@
   <div class="grid g4">
     <div class="field span2">
       <label>Medicare Card Number</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Reference No.</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Expiry (MM/YYYY)</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
@@ -464,19 +496,19 @@
     <div class="field">
       <label>Pension / Concession Type</label>
       <div class="check-row" style="flex-wrap:wrap;">
-        <div class="check-item"><div class="radio-circle"></div> None</div>
-        <div class="check-item"><div class="radio-circle"></div> Pension</div>
-        <div class="check-item"><div class="radio-circle"></div> Health Care Card</div>
-        <div class="check-item"><div class="radio-circle"></div> CSHC</div>
+        <label class="check-item"><input type="radio" name="concession" value="None"> None</label>
+        <label class="check-item"><input type="radio" name="concession" value="Pension"> Pension</label>
+        <label class="check-item"><input type="radio" name="concession" value="Health Care Card"> Health Care Card</label>
+        <label class="check-item"><input type="radio" name="concession" value="CSHC"> CSHC</label>
       </div>
     </div>
     <div class="field">
       <label>Card Number</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Expiry</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
@@ -484,21 +516,21 @@
   <div class="grid g4">
     <div class="field span2">
       <label>DVA File Number</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Card Colour</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> Gold</div>
-        <div class="check-item"><div class="radio-circle"></div> White</div>
-        <div class="check-item"><div class="radio-circle"></div> Orange</div>
+        <label class="check-item"><input type="radio" name="dva-colour" value="Gold"> Gold</label>
+        <label class="check-item"><input type="radio" name="dva-colour" value="White"> White</label>
+        <label class="check-item"><input type="radio" name="dva-colour" value="Orange"> Orange</label>
       </div>
     </div>
     <div class="field">
       <label>DVA Transport?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <label class="check-item"><input type="radio" name="dva-transport" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="dva-transport" value="Yes"> Yes</label>
       </div>
     </div>
   </div>
@@ -507,23 +539,23 @@
   <div class="grid g4">
     <div class="field span2">
       <label>Fund Name</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Membership Number</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Policy / Group No.</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field span2">
       <label>Second Fund Name <span class="opt">if applicable</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field span2">
       <label>Second Fund Membership No.</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
@@ -533,7 +565,7 @@
   ══════════════════════════════════════ -->
   <div class="page-break">
 
-  <!-- Repeat mini-header on page 2 -->
+  <!-- Mini-header page 2 -->
   <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:6px;margin-bottom:12px;border-bottom:1px solid var(--border);">
     <span style="font-size:10px;color:var(--mid);">Wisdom Surgery Clinic — New Patient Registration</span>
     <img src="https://anna-bryan-joys.github.io/wisdomsurgery/brand_assets/WisdomSurgery_Logo_Circle.PNG"
@@ -552,32 +584,32 @@
   <div class="grid g4">
     <div class="field span2">
       <label>Full Name <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Relationship <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Mobile <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field span2">
       <label>Home / Work Phone <span class="opt">optional</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field span2">
       <label>Authorise to discuss health info?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <label class="check-item"><input type="radio" name="ec-auth" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="ec-auth" value="Yes"> Yes</label>
       </div>
     </div>
     <div class="field span4">
       <label>Also acts as Legal Decision-Maker / Guardian?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes — EPOA / Guardian / Parent</div>
+        <label class="check-item"><input type="radio" name="legal-dm" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="legal-dm" value="Yes"> Yes — EPOA / Guardian / Parent</label>
       </div>
     </div>
   </div>
@@ -586,15 +618,15 @@
   <div class="grid g2">
     <div class="field">
       <label>Referring Doctor / Dentist</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Referrer Phone</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field span2">
       <label>Reason for Referral / Chief Complaint</label>
-      <div class="write-box md"></div>
+      <textarea class="write-box md"></textarea>
     </div>
   </div>
 
@@ -610,18 +642,18 @@
   <div class="grid g2">
     <div class="field">
       <label>Usual GP / Medical Centre</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Allergies</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No Known Allergies</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes — I have allergies</div>
+        <label class="check-item"><input type="radio" name="allergies" value="None"> No Known Allergies</label>
+        <label class="check-item"><input type="radio" name="allergies" value="Yes"> Yes — I have allergies</label>
       </div>
     </div>
     <div class="field span2">
       <label>If yes — please list all allergies and reactions</label>
-      <div class="write-box sm"></div>
+      <textarea class="write-box sm"></textarea>
     </div>
   </div>
 
@@ -629,18 +661,18 @@
   <div class="grid g2">
     <div class="field span2">
       <label>List all medications — prescribed, OTC, vitamins, supplements (include doses and frequency)</label>
-      <div class="write-box md"></div>
+      <textarea class="write-box md"></textarea>
     </div>
     <div class="field span2">
       <label>Are you taking any of the following? <span class="opt">tick all that apply</span></label>
       <div class="check-row">
-        <div class="check-item"><div class="check-box"></div> Warfarin</div>
-        <div class="check-item"><div class="check-box"></div> Aspirin (daily)</div>
-        <div class="check-item"><div class="check-box"></div> Clopidogrel (Plavix)</div>
-        <div class="check-item"><div class="check-box"></div> Rivaroxaban (Xarelto)</div>
-        <div class="check-item"><div class="check-box"></div> Apixaban (Eliquis)</div>
-        <div class="check-item"><div class="check-box"></div> Other blood thinners</div>
-        <div class="check-item"><div class="check-box"></div> Long-term Steroids</div>
+        <label class="check-item"><input type="checkbox" name="meds-warfarin"> Warfarin</label>
+        <label class="check-item"><input type="checkbox" name="meds-aspirin"> Aspirin (daily)</label>
+        <label class="check-item"><input type="checkbox" name="meds-clopidogrel"> Clopidogrel (Plavix)</label>
+        <label class="check-item"><input type="checkbox" name="meds-rivaroxaban"> Rivaroxaban (Xarelto)</label>
+        <label class="check-item"><input type="checkbox" name="meds-apixaban"> Apixaban (Eliquis)</label>
+        <label class="check-item"><input type="checkbox" name="meds-other-blood"> Other blood thinners</label>
+        <label class="check-item"><input type="checkbox" name="meds-steroids"> Long-term Steroids</label>
       </div>
     </div>
   </div>
@@ -661,36 +693,35 @@
 
   <div class="sub-head">Past Medical Conditions <span style="font-weight:400;text-transform:none;letter-spacing:0;">— tick all that apply</span></div>
   <div class="condition-grid">
-    <div class="condition-item"><div class="check-box"></div> Diabetes</div>
-    <div class="condition-item"><div class="check-box"></div> Hypertension</div>
-    <div class="condition-item"><div class="check-box"></div> Heart Disease / Angina</div>
-    <div class="condition-item"><div class="check-box"></div> Heart Failure</div>
-    <div class="condition-item"><div class="check-box"></div> Pacemaker / Defibrillator</div>
-    <div class="condition-item"><div class="check-box"></div> Stroke / TIA</div>
-    <div class="condition-item"><div class="check-box"></div> Epilepsy</div>
-    <div class="condition-item"><div class="check-box"></div> Asthma / COPD</div>
-    <div class="condition-item"><div class="check-box"></div> Bleeding / Clotting Disorder</div>
-    <div class="condition-item"><div class="check-box"></div> Thyroid Condition</div>
-    <div class="condition-item"><div class="check-box"></div> Arthritis</div>
-    <div class="condition-item"><div class="check-box"></div> Osteoporosis / Osteopenia</div>
-    <div class="condition-item"><div class="check-box"></div> Kidney Disease</div>
-    <div class="condition-item"><div class="check-box"></div> Liver Disease</div>
-    <div class="condition-item"><div class="check-box"></div> HIV / AIDS</div>
-    <div class="condition-item"><div class="check-box"></div> Hepatitis B or C</div>
-    <div class="condition-item"><div class="check-box"></div> Cancer (current or past)</div>
-    <div class="condition-item"><div class="check-box"></div> Head / Neck Radiation</div>
-    <div class="condition-item"><div class="check-box"></div> Bisphosphonate / Denosumab</div>
-    <div class="condition-item"><div class="check-box"></div> Immunosuppression</div>
-    <div class="condition-item"><div class="check-box"></div> Depression / Anxiety</div>
-    <div class="condition-item"><div class="check-box"></div> Sleep Apnoea</div>
-    <div class="condition-item"><div class="check-box"></div> GORD / Reflux</div>
+    <label class="condition-item"><input type="checkbox" name="cond-diabetes"> Diabetes</label>
+    <label class="condition-item"><input type="checkbox" name="cond-htn"> Hypertension</label>
+    <label class="condition-item"><input type="checkbox" name="cond-heart"> Heart Disease / Angina</label>
+    <label class="condition-item"><input type="checkbox" name="cond-hf"> Heart Failure</label>
+    <label class="condition-item"><input type="checkbox" name="cond-pacemaker"> Pacemaker / Defibrillator</label>
+    <label class="condition-item"><input type="checkbox" name="cond-stroke"> Stroke / TIA</label>
+    <label class="condition-item"><input type="checkbox" name="cond-epilepsy"> Epilepsy</label>
+    <label class="condition-item"><input type="checkbox" name="cond-asthma"> Asthma / COPD</label>
+    <label class="condition-item"><input type="checkbox" name="cond-bleeding"> Bleeding / Clotting Disorder</label>
+    <label class="condition-item"><input type="checkbox" name="cond-thyroid"> Thyroid Condition</label>
+    <label class="condition-item"><input type="checkbox" name="cond-arthritis"> Arthritis</label>
+    <label class="condition-item"><input type="checkbox" name="cond-osteo"> Osteoporosis / Osteopenia</label>
+    <label class="condition-item"><input type="checkbox" name="cond-kidney"> Kidney Disease</label>
+    <label class="condition-item"><input type="checkbox" name="cond-liver"> Liver Disease</label>
+    <label class="condition-item"><input type="checkbox" name="cond-hiv"> HIV / AIDS</label>
+    <label class="condition-item"><input type="checkbox" name="cond-hep"> Hepatitis B or C</label>
+    <label class="condition-item"><input type="checkbox" name="cond-cancer"> Cancer (current or past)</label>
+    <label class="condition-item"><input type="checkbox" name="cond-radiation"> Head / Neck Radiation</label>
+    <label class="condition-item"><input type="checkbox" name="cond-bisphos"> Bisphosphonate / Denosumab</label>
+    <label class="condition-item"><input type="checkbox" name="cond-immuno"> Immunosuppression</label>
+    <label class="condition-item"><input type="checkbox" name="cond-mental"> Depression / Anxiety</label>
+    <label class="condition-item"><input type="checkbox" name="cond-apnoea"> Sleep Apnoea</label>
+    <label class="condition-item"><input type="checkbox" name="cond-gord"> GORD / Reflux</label>
   </div>
 
-  <!-- ★ PULLED DOWN WITH EXTRA SPACE for handwriting ★ -->
   <div class="field" style="margin-top: 20px;">
     <label>Other medical history, surgeries or hospitalisations</label>
     <div style="font-size:9px;color:var(--muted);margin-bottom:6px;">Include any other conditions, previous surgeries, hospitalisations, or anything else your surgeon should know.</div>
-    <div class="write-box xxl"></div>
+    <textarea class="write-box xxl"></textarea>
   </div>
 
   <div class="sub-head" style="margin-top:14px;">Anaesthetic &amp; Surgical History</div>
@@ -698,32 +729,32 @@
     <div class="field">
       <label>Previous anaesthetic?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <label class="check-item"><input type="radio" name="prev-anaesthetic" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="prev-anaesthetic" value="Yes"> Yes</label>
       </div>
     </div>
     <div class="field">
       <label>Any adverse anaesthetic reactions?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
-        <div class="check-item"><div class="radio-circle"></div> Unsure</div>
+        <label class="check-item"><input type="radio" name="anaesthetic-reaction" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="anaesthetic-reaction" value="Yes"> Yes</label>
+        <label class="check-item"><input type="radio" name="anaesthetic-reaction" value="Unsure"> Unsure</label>
       </div>
     </div>
     <div class="field span2">
       <label>If yes / unsure — describe the reaction</label>
-      <div class="write-box sm"></div>
+      <textarea class="write-box sm"></textarea>
     </div>
     <div class="field">
       <label>Previous oral / jaw surgery?</label>
       <div class="check-row">
-        <div class="check-item"><div class="radio-circle"></div> No</div>
-        <div class="check-item"><div class="radio-circle"></div> Yes</div>
+        <label class="check-item"><input type="radio" name="prev-oral-surgery" value="No"> No</label>
+        <label class="check-item"><input type="radio" name="prev-oral-surgery" value="Yes"> Yes</label>
       </div>
     </div>
     <div class="field">
       <label>If yes — details (procedure, date, where)</label>
-      <div class="write-box sm"></div>
+      <textarea class="write-box sm"></textarea>
     </div>
   </div>
 
@@ -732,28 +763,28 @@
     <div class="field">
       <label>Smoking / Tobacco use</label>
       <div class="check-row" style="flex-direction:column;gap:3px;">
-        <div class="check-item"><div class="radio-circle"></div> Non-smoker</div>
-        <div class="check-item"><div class="radio-circle"></div> Current smoker</div>
-        <div class="check-item"><div class="radio-circle"></div> Ex-smoker</div>
+        <label class="check-item"><input type="radio" name="smoking" value="Non-smoker"> Non-smoker</label>
+        <label class="check-item"><input type="radio" name="smoking" value="Current"> Current smoker</label>
+        <label class="check-item"><input type="radio" name="smoking" value="Ex-smoker"> Ex-smoker</label>
       </div>
     </div>
     <div class="field">
       <label>Alcohol use</label>
       <div class="check-row" style="flex-direction:column;gap:3px;">
-        <div class="check-item"><div class="radio-circle"></div> None</div>
-        <div class="check-item"><div class="radio-circle"></div> Occasional</div>
-        <div class="check-item"><div class="radio-circle"></div> Moderate (≤14/wk)</div>
-        <div class="check-item"><div class="radio-circle"></div> Heavy (&gt;14/wk)</div>
+        <label class="check-item"><input type="radio" name="alcohol" value="None"> None</label>
+        <label class="check-item"><input type="radio" name="alcohol" value="Occasional"> Occasional</label>
+        <label class="check-item"><input type="radio" name="alcohol" value="Moderate"> Moderate (≤14/wk)</label>
+        <label class="check-item"><input type="radio" name="alcohol" value="Heavy"> Heavy (&gt;14/wk)</label>
       </div>
     </div>
     <div class="field">
       <label>Pregnancy / Breastfeeding</label>
       <div class="check-row" style="flex-direction:column;gap:3px;">
-        <div class="check-item"><div class="radio-circle"></div> Not applicable</div>
-        <div class="check-item"><div class="radio-circle"></div> Not pregnant</div>
-        <div class="check-item"><div class="radio-circle"></div> Pregnant</div>
-        <div class="check-item"><div class="radio-circle"></div> Breastfeeding</div>
-        <div class="check-item"><div class="radio-circle"></div> Possibly pregnant</div>
+        <label class="check-item"><input type="radio" name="pregnancy" value="NA"> Not applicable</label>
+        <label class="check-item"><input type="radio" name="pregnancy" value="Not pregnant"> Not pregnant</label>
+        <label class="check-item"><input type="radio" name="pregnancy" value="Pregnant"> Pregnant</label>
+        <label class="check-item"><input type="radio" name="pregnancy" value="Breastfeeding"> Breastfeeding</label>
+        <label class="check-item"><input type="radio" name="pregnancy" value="Possibly"> Possibly pregnant</label>
       </div>
     </div>
   </div>
@@ -778,7 +809,7 @@
   </div>
 
   <div class="consent-block">
-    <div class="consent-check"><div class="check-box"></div></div>
+    <div class="consent-check"><input type="checkbox" name="consent-privacy"></div>
     <div>
       <div class="consent-title">Privacy Policy &amp; Information Collection</div>
       <div class="consent-body">I consent to the collection, use and disclosure of my personal health information for the purpose of providing medical and surgical services, processing billing (including Medicare and DVA), and sending appointment reminders. Information is handled in accordance with the <em>Privacy Act 1988</em> (Cth) and Australian Privacy Principles.</div>
@@ -787,13 +818,13 @@
 
   <div class="consent-block">
     <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
-      <div class="check-item"><div class="radio-circle"></div> I <strong>agree</strong> to this practice uploading letters and documents to my My Health Record</div>
-      <div class="check-item"><div class="radio-circle"></div> I <strong>decline</strong> to have reports or correspondence uploaded to My Health Record by this practice</div>
+      <label class="check-item"><input type="radio" name="mhr" value="agree"> I <strong>agree</strong> to this practice uploading letters and documents to my My Health Record</label>
+      <label class="check-item"><input type="radio" name="mhr" value="decline"> I <strong>decline</strong> to have reports or correspondence uploaded to My Health Record by this practice</label>
     </div>
   </div>
 
   <div class="consent-block">
-    <div class="consent-check"><div class="check-box"></div></div>
+    <div class="consent-check"><input type="checkbox" name="consent-ai"></div>
     <div>
       <div class="consent-title">AI Clinical Scribe — Lyrebird Health</div>
       <div class="consent-body">I consent to the use of Lyrebird Health AI scribe during my consultations to assist with clinical documentation. All transcription occurs within Australia. Audio is destroyed immediately after transcription. Notes are reviewed and approved by Dr Raymond. I may withdraw consent at any time without affecting my care.</div>
@@ -801,7 +832,7 @@
   </div>
 
   <div class="consent-block">
-    <div class="consent-check"><div class="check-box"></div></div>
+    <div class="consent-check"><input type="checkbox" name="consent-comms"></div>
     <div>
       <div class="consent-title">Communication Consent</div>
       <div class="consent-body">I consent to receiving appointment reminders, recalls, invoices, and other communications via email, SMS, and/or post using the contact details provided.</div>
@@ -809,7 +840,7 @@
   </div>
 
   <div class="consent-block">
-    <div class="consent-check"><div class="check-box"></div></div>
+    <div class="consent-check"><input type="checkbox" name="consent-accuracy"></div>
     <div>
       <div class="consent-title">Accuracy of Information</div>
       <div class="consent-body">I certify that the information provided in this form is accurate and complete to the best of my knowledge. I understand it is my ongoing responsibility to inform the practice of any changes to my health, medications, personal, or insurance details prior to future appointments.</div>
@@ -818,26 +849,26 @@
 
   <div class="grid g2" style="margin-top:12px;">
     <div class="field">
-      <label>Patient Full Name (print) <span class="req">*</span></label>
-      <div class="write-line"></div>
+      <label>Patient Full Name (type or print) <span class="req">*</span></label>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Date</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Legal Decision-Maker / Guardian Full Name <span class="opt">if applicable</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Relationship to Patient</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
   <div class="field" style="margin-top:10px;">
     <label>Signature <span class="req">*</span></label>
-    <div class="sig-area"><span>Sign within box</span></div>
+    <div class="sig-area"><span>Print and sign within this box</span></div>
   </div>
 
   <!-- ══════════════════════════════════════
@@ -852,22 +883,22 @@
     Please nominate the <strong style="color:var(--navy);">Account Holder</strong> — the person responsible for all fees. Tick one option.
   </div>
 
-  <div class="fin-card">
-    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+  <label class="fin-card" style="cursor:pointer;">
+    <div class="fin-card-radio"><input type="radio" name="financial" value="self"></div>
     <div class="fin-card-text">I am the patient, I am 18+ years old, and I accept financial responsibility</div>
-  </div>
-  <div class="fin-card">
-    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+  </label>
+  <label class="fin-card" style="cursor:pointer;">
+    <div class="fin-card-radio"><input type="radio" name="financial" value="guardian"></div>
     <div class="fin-card-text">The patient is under 18 — I am the parent or legal guardian</div>
-  </div>
-  <div class="fin-card">
-    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+  </label>
+  <label class="fin-card" style="cursor:pointer;">
+    <div class="fin-card-radio"><input type="radio" name="financial" value="other-individual"></div>
     <div class="fin-card-text">Another individual has agreed to be the Account Holder (patient 18+)</div>
-  </div>
-  <div class="fin-card">
-    <div class="fin-card-radio"><div class="radio-circle"></div></div>
+  </label>
+  <label class="fin-card" style="cursor:pointer;">
+    <div class="fin-card-radio"><input type="radio" name="financial" value="organisation"></div>
     <div class="fin-card-text">A third-party organisation will be paying (e.g. DVA, WorkCover)</div>
-  </div>
+  </label>
 
   <div style="font-size:9.5px;color:var(--mid);margin:8px 0 10px;line-height:1.6;background:#f0fbfb;border:1px solid rgba(42,180,180,0.2);border-radius:6px;padding:8px 10px;">
     <strong style="color:var(--navy);">If not the patient</strong> — please complete below. Being an Account Holder does not entitle you to confidential medical information or treatment decisions.
@@ -876,32 +907,32 @@
   <div class="grid g2">
     <div class="field">
       <label>Account Holder Full Name <span class="opt">if not the patient</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Relationship to Patient</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Email</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field">
       <label>Phone</label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field span2">
       <label>Mailing Address <span class="opt">if different from patient</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
     <div class="field span2">
       <label>Organisation Name <span class="opt">DVA / WorkCover / Other — if applicable</span></label>
-      <div class="write-line"></div>
+      <input type="text" class="write-line"/>
     </div>
   </div>
 
   <div class="consent-block" style="margin-top:10px;">
-    <div class="consent-check"><div class="check-box"></div></div>
+    <div class="consent-check"><input type="checkbox" name="consent-financial"></div>
     <div>
       <div class="consent-title">Financial Responsibility Agreement</div>
       <div class="consent-body">I accept responsibility for all consultation, surgical, review, and associated fees. I understand that a fee estimate will be provided before surgery is booked; consultation fees are payable at time of booking; surgical fees are payable in full before the procedure date. Late cancellations (less than 48 hours) may incur an administrative fee. Wisdom Surgery Clinic does not participate in no-gap or known-gap schemes — an out-of-pocket cost will typically apply.</div>
@@ -911,11 +942,21 @@
   <!-- FOOTER -->
   <div class="form-footer">
     <span>Wisdom Surgery Clinic &nbsp;·&nbsp; 1300 111 324 &nbsp;·&nbsp; adminteam@wisdomsurgery.clinic &nbsp;·&nbsp; wisdomsurgery.me</span>
-    <span>New Patient Registration — v1 2026</span>
+    <span>New Patient Registration — v2 2026</span>
   </div>
 
   </div><!-- end page 4 -->
 
 </div><!-- .page -->
+
+<script>
+  // Auto-grow textareas as user types
+  document.querySelectorAll('textarea.write-box').forEach(function(ta) {
+    ta.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
+  });
+</script>
 </body>
 </html>
