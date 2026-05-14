@@ -239,6 +239,12 @@
                 <input id="EmailAddress" name="EmailAddress" type="email" placeholder="anna@example.com" class="form-input" autocomplete="email" />
               </div>
 
+              <!-- Phone -->
+              <div>
+                <label class="block text-sm font-medium text-navy-700 mb-2">Mobile number</label>
+                <input id="MobilePhoneNumber" name="MobilePhoneNumber" type="tel" placeholder="04xx xxx xxx" class="form-input" autocomplete="tel" />
+              </div>
+
               <!-- Amount -->
               <div>
                 <label class="block text-sm font-medium text-navy-700 mb-2">Amount (AUD)</label>
@@ -305,6 +311,7 @@
     if (params.get('first'))   document.getElementById('FirstName').value        = decodeURIComponent(params.get('first'));
     if (params.get('last'))    document.getElementById('LastName').value         = decodeURIComponent(params.get('last'));
     if (params.get('email'))   document.getElementById('EmailAddress').value     = decodeURIComponent(params.get('email'));
+    if (params.get('phone'))   document.getElementById('MobilePhoneNumber').value = decodeURIComponent(params.get('phone'));
   </script>
 </body>
 </html>
